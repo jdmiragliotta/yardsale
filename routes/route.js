@@ -1,16 +1,16 @@
 var passport = require('passport');
 var passportLocal = require('passport-local');
 var bcrypt = require('bcryptjs');
-var session = require('express-sessions');
+var session = require('express-session');
 var controller = require('../controllers/controller.js');
 var User = require('../models/user.js');
 
 module.exports.routes = function(app){
 
-  app.use(require('express-sessions')({
+  app.use(require('express-session')({
     secret: 'ifitellyouitsnotasecret',
     resave: true,
-    saveUninititialized: true,
+    saveUninitialized: true,
     cookie: {secure : false, maxAge : (4 * 60 * 60 * 1000)}, //4 hours
   }));
 
