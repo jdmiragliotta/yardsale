@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html ng-app="yardsale">
+<head>
+  <title>Buy Or Sell</title>
+  <script   src="https://code.jquery.com/jquery-2.2.2.min.js"   integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI="   crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+  <script src="/js/buyorsell.js"></script>
+  <script src="/js/buyorsellController.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+  <link href="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+
+</head>
+<body ng-controller="yardsaleController as yardsale">
+
+  <nav class="ruNav">
+    <div class="container">
+      <div class="nav-wrapper row">
+        <a href="/" class="brand-logo">Buy OR Sell</a>
+        <ul class="right hide-on-med-and-down">
+          <li ng-show="!user"><a id="login" href="#">Login</a></li>
+          <li ng-show="user"><a id="login" href="#" ng-click="logout()">Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div id="login-form" class="webui-popover-content">
+    <form id="formLogin" class="col s12" method="POST">
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="username" type="text" class="validate" ng-model="forms.username">
+          <label for="username">Username</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="password" type="password" class="validate" ng-model="forms.password">
+          <label for="password">Password</label>
+        </div>
+        <button ng-click="login()" class="waves-effect waves-light btn">Submit</button>
+      </div>
+    </form>
+  </div>
+
+
+  <div class="slider">
+    <ul class="slides">
+      <li>
+        <img src="http://lorempixel.com/580/250/cats/1"> <!-- random image -->
+        <div class="caption center-align">
+          <h3 ng-if="user">Hello {{user.username}}</h3>
+          <h5 class="light grey-text text-lighten-3">This is your current balance: {{user.money | currency}}</h5>
+        </div>
+      </li>
+      <li>
+        <img src="http://lorempixel.com/580/250/cats/2"> <!-- random image -->
+        <div class="caption left-align">
+          <h3>These are your collected items</h3>
+          <h5 class="light grey-text text-lighten-3" ng-repeat="item in user.collectedItems">{{item}}</h5>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="row center">
+    <a id="place-button" class="btn-large waves-effect waves-light red darken-4 modal-trigger" href="#modal2">Add Item For Sale</a>
+  </div>
+
+  <div id="modal2" class="modal">
+  <div class="modal-content" id="place-modal">
+    <h4>New Item</h4>
+    <div class="row">
+      <div class="input-field col s6">
+        <input id="itemName" type="text" class="validate" ng-model="itemTxt.name">
+        <label for="itemName">Item Name</label>
+      </div>
+      <div class="input-field col s6">
+        <input id="itemDescription" type="text" class="validate" ng-model="itemTxt.description">
+        <label for="itemDescription">Item Description</label>
+      </div>
+      <div class="input-field col s6">
+        <input id="itemPrice" type="text" class="validate" ng-model="itemTxt.price">
+        <label for="itemPrice">Price</label>
+      </div>
+      <a class="waves-effect waves-light btn" ng-click="newItem()">Add Item</a>
+    </div>
+  </div>
+</div>
+
+  <div class="container">
+    <div ng-init="getItems()">
+      <section ng-repeat="item in items">
+        <div ng-if="!item.itemSold">
+          <div class="row">
+            <div class="col m6 offset-m3 center">
+              <h3>{{item.itemName}}</h3>
+              <h5>Description: {{item.itemDescription}}</h5>
+              <p>Owner: {{item._owner.username}}</p>
+              <small>Price: {{item.itemPrice | currency}}</small>
+              <a class="waves-effect waves-light btn" ng-click="buyItem(item._id, item.itemPrice)">BUY NOW!</a>
+              <div class="input-field col s12" ng-if="user">
+                <textarea id="comment" class="materialize-textarea" ng-model="commentText.addComment"></textarea>
+                <label for="comment">Add a comment</label>
+                <a class="waves-effect waves-light btn" ng-click="addComment(item.itemName)">Add Comment</a>
+              </div>
+              <ul ng-repeat="comment in item.comments">
+                <li>{{comment._owner.username}} says: {{comment.commentMessage}}</li>
+              </ul>
+              <div class="divider"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </div>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.js"></script>
+  <script src="/js/main.js"></script>
+
+</body>
+</html>

@@ -1,6 +1,6 @@
-var Item = require('../model/item.js')
-var User = require('../model/user.js')
-var Comment = require('..//model/comment.js')
+var Item = require('../models/item.js')
+var User = require('../models/user.js')
+var Comment = require('../models/comment.js')
 
 exports.home = function(req, res, next){
   res.sendFile(process.cwd() + '/public/views/index.html');
@@ -17,7 +17,7 @@ exports.getLogin = function(req, res, next){
   });
 }
 
-exports.logut = function(req, res, next){
+exports.logout = function(req, res, next){
   req.session.destroy(function (err){
     res.redirect('/');
   });
@@ -52,7 +52,7 @@ exports.getComments = function(req, res, next){
     Item.update({
       itemName: itemName
     }, {
-      $push {comments: comment._id}
+      $push: {comments: comment._id}
     }, function(err, updated){
       if (err) throw err;
       res.json({});
@@ -80,7 +80,7 @@ exports.buyItem = function(req, res, next){
   Item.findOneAndUpdate({
     _id:req.body.itemId
   }, {
-    $set: {'itemSold: true'}
+    $set: {'itemSold': true}
   }, function(err, updated){
     if(err) throw err;
 
