@@ -13,7 +13,7 @@
 </head>
 <body ng-controller="yardsaleController as yardsale">
 
-  <nav class="ruNav">
+  <nav>
     <div class="container">
       <div class="nav-wrapper row">
         <a href="/" class="brand-logo">Yard Sale</a>
@@ -43,24 +43,14 @@
     </form>
   </div>
 
+  <div class="user-name">
+    <h3 ng-if="user">Hello {{user.username}}</h3>
+    <h5 class="light grey-text text-lighten-3">This is your current balance: {{user.money | currency}}</h5>
+  </div>
 
-  <div class="slider">
-    <ul class="slides">
-      <li>
-        <img src="http://lorempixel.com/580/250/cats/1"> <!-- random image -->
-        <div class="caption center-align">
-          <h3 ng-if="user">Hello {{user.username}}</h3>
-          <h5 class="light grey-text text-lighten-3">This is your current balance: {{user.money | currency}}</h5>
-        </div>
-      </li>
-      <li>
-        <img src="http://lorempixel.com/580/250/cats/2"> <!-- random image -->
-        <div class="caption left-align">
-          <h3>These are your collected items</h3>
-          <h5 class="light grey-text text-lighten-3" ng-repeat="item in user.collectedItems">{{item}}</h5>
-        </div>
-      </li>
-    </ul>
+  <div class="user-info">
+    <h3>These are your collected items</h3>
+    <h5 class="light grey-text text-lighten-3" ng-repeat="item in user.collectedItems">{{item}}</h5>
   </div>
 
   <div class="row center">

@@ -41,7 +41,7 @@ angular.module('yardsale')
       commentMessage: $scope.commentText.addComment
     })
     then(function(){
-      $scope.commentText.addComment = ''
+      $scope.commentText.addComment = '';
       $scope.getItems();
     });
   }

@@ -7,6 +7,8 @@ exports.home = function(req, res, next){
 }
 
 exports.getLogin = function(req, res, next){
+  console.log(req.user.username);
+  console.log(req.user.id);
   User.findOne({
     username: req.user.username
   })
@@ -83,7 +85,7 @@ exports.buyItem = function(req, res, next){
     $set: {'itemSold': true}
   }, function(err, updated){
     if(err) throw err;
-
+    console.log("updated!")
   User.findOneAndUpdate({
     _id: req.user.id
   }, {
@@ -91,7 +93,7 @@ exports.buyItem = function(req, res, next){
       money: req.body.userMoney
     },
     $push: {
-      'collectedItems':update._doc.itemName
+      'collectedItems':updated._doc.itemName
     }
   }, function(err, user){
     if (err) throw err;

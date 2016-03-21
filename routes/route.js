@@ -1,39 +1,45 @@
-var passport = require('passport');
+var passport  = require('passport');
 var passportLocal = require('passport-local');
 var bcrypt = require('bcryptjs');
 var session = require('express-session');
 var controller = require('../controllers/controller.js');
 var User = require('../models/user.js');
 
-module.exports.routes = function(app){
+module.exports.routes = function(app) {
 
   app.use(require('express-session')({
-    secret: 'ifitellyouitsnotasecret',
+    secret: 'eatmyshorts',
     resave: true,
     saveUninitialized: true,
-    cookie: {secure : false, maxAge : (4 * 60 * 60 * 1000)}, //4 hours
+    cookie : { secure : false, maxAge : (4 * 60 * 60 * 1000) }, // 4 hours
   }));
+
 
   app.use(passport.initialize());
   app.use(passport.session());
 
   app.get('/', controller.home);
+
   app.get('/api/getItems', controller.getItems);
+
   app.get('/loginInfo', controller.getLogin);
+
   app.get('/logout', controller.logout);
 
   app.post('/login',
     passport.authenticate('local', {
       successRedirect: '/',
-      failureRedirect: '/msg=Login Failed'
+      failureRedirect: '/?msg=Login failed'
     })
   );
+
   app.post('/api/addComment', controller.addComment);
+
   app.post('/api/newItem', controller.newItem);
-  app.post('/api/buyItem', controller.buyItem);
+
+  app.put('/api/buyItem', controller.buyItem);
 
   //passport
-
   passport.serializeUser(function(user, done) {
     done(null, user);
   });
@@ -64,4 +70,4 @@ module.exports.routes = function(app){
 
   }));
 
-}// end module.exports.routes
+}
