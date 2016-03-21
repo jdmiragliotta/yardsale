@@ -18,8 +18,9 @@ module.exports.routes = function(app){
   app.use(passport.session());
 
   app.get('/', controller.home);
-
   app.get('/api/getItems', controller.getItems);
+  app.get('/loginInfo', controller.getLogin);
+  app.get('/logout', controller.logout);
 
   app.post('/login',
     passport.authenticate('local', {
@@ -27,9 +28,8 @@ module.exports.routes = function(app){
       failureRedirect: '/msg=Login Failed'
     })
   );
-
   app.post('/api/addComment', controller.addComment);
-  app.post('/api/addItem', controller.addItem);
+  app.post('/api/newItem', controller.newItem);
   app.post('/api/buyItem', controller.buyItem);
 
   //passport

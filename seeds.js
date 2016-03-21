@@ -8,16 +8,16 @@ mongoose.connect(db)
 var itemSchema = new Schema({
   //Connecting item to owner
   _owner: {
-    type: Schema.Types.ObjectId
+    type: Schema.Types.ObjectId,
     ref: 'User'
   },
-  itemName: String;
-  itemDescription: String;
+  itemName: String,
+  itemDescription: String,
   itemPrice: Number,
   itemSold: Boolean,
   // comments needs to be an array because an item can have several comments - connecting item to comments
   comments: [{
-    type: Schema.Types.ObjectId
+    type: Schema.Types.ObjectId,
     ref: 'Comment'
   }]
 });
@@ -28,7 +28,7 @@ var userSchema = new Schema({
     type: String,
     unique: true
   },
-  password: String;
+  password: String,
   money: Number,
   // collectedItems needs to be an array because user can have many items
   collectedItems:  [{
@@ -59,7 +59,7 @@ userSchema.pre('save', function(next){
 var commentSchema = new Schema({
   //Connecting comment to User
   _owner: {
-    type: Schema.Types.ObjectId
+    type: Schema.Types.ObjectId,
     ref: 'User'
   },
   itemLink: String,
@@ -72,7 +72,7 @@ User = mongoose.model('User', userSchema);
 Comment = mongoose.model('Comment', commentSchema);
 
 // Create Seed Users, Items, Comments
-var userOne = newUser({
+var userOne = new User({
   username:'johnsmith',
   password:'password',
   money: 10000,
@@ -84,15 +84,15 @@ userOne.save(function(err){
   if (err) throw err;
 
   //Inputing Comments
-  var commentOne: new Comment({
+  var commentOne = new Comment({
     _owner: userOne.id,
-    itemLink: 'Monopoly'
+    itemLink: 'Monopoly',
     commentMessage: 'Simply a classic'
   });
 
-   var commentTwo: new Comment({
+   var commentTwo = new Comment({
     _owner: userOne.id,
-    itemLink: 'Clue'
+    itemLink: 'Clue',
     commentMessage: 'Loved this growing up!'
   });
 
@@ -107,7 +107,8 @@ userOne.save(function(err){
 
    var itemOne = new Item({
     itemName: 'Monopoly',
-    itemDescription:'Players take the part of land owners, attempting to buy and then develop their land. Income is gained by other players visiting their properties and money is spent when they visit properties belonging to other players',    itemPrice: 5000,
+    itemDescription:'Players take the part of land owners, attempting to buy and then develop their land. Income is gained by other players visiting their properties and money is spent when they visit properties belonging to other players',
+    itemPrice: 5000,
     itemSold: false
    });
 
@@ -140,7 +141,7 @@ userOne.save(function(err){
 });//End UserOne Creation
 
 // Create Seed UserOne
-var userTwo = newUser({
+var userTwo = new User({
   username:'janesmith',
   password:'password',
   money: 15000,
@@ -151,15 +152,15 @@ userTwo.save(function(err){
   if (err) throw err;
 
   //Inputing Comments
-  var commentOne: new Comment({
+  var commentOne = new Comment({
     _owner: userTwo.id,
-    itemLink: 'Monopoly'
+    itemLink: 'Monopoly',
     commentMessage: 'I always got sent to Jail!'
   });
 
-   var commentTwo: new Comment({
+   var commentTwo = new Comment({
     _owner: userTwo.id,
-    itemLink: 'Clue'
+    itemLink: 'Clue',
     commentMessage: 'Prof. Plum in the Conservatorty with the Wrench!'
   });
 
@@ -178,7 +179,7 @@ userTwo.save(function(err){
     })
 
    //Connecting Comments to items
-  Item.update({itemName: 'Life'}, {$push: {comments: commentTwo._id}})
+  Item.update({itemName: 'Clue'}, {$push: {comments: commentTwo._id}})
     .exec(function(err){
       if(err) throw err;
       console.log('successful');

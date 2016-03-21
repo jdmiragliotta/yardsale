@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html ng-app="yardsale">
 <head>
-  <title>Buy Or Sell</title>
+  <title>Yard Sale</title>
   <script   src="https://code.jquery.com/jquery-2.2.2.min.js"   integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI="   crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
-  <script src="/js/buyorsell.js"></script>
-  <script src="/js/buyorsellController.js"></script>
+  <script src="/js/yardsale.js"></script>
+  <script src="/js/yardsaleController.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
   <link href="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.css" rel="stylesheet" />
-  <link rel="stylesheet" type="text/css" href="/css/main.css">
+  <link rel="stylesheet" type="text/css" href="/css/styles.css">
 
 </head>
 <body ng-controller="yardsaleController as yardsale">
@@ -16,7 +16,7 @@
   <nav class="ruNav">
     <div class="container">
       <div class="nav-wrapper row">
-        <a href="/" class="brand-logo">Buy OR Sell</a>
+        <a href="/" class="brand-logo">Yard Sale</a>
         <ul class="right hide-on-med-and-down">
           <li ng-show="!user"><a id="login" href="#">Login</a></li>
           <li ng-show="user"><a id="login" href="#" ng-click="logout()">Logout</a></li>
@@ -72,15 +72,15 @@
     <h4>New Item</h4>
     <div class="row">
       <div class="input-field col s6">
-        <input id="itemName" type="text" class="validate" ng-model="itemTxt.name">
+        <input id="itemName" type="text" class="validate" ng-model="itemText.name">
         <label for="itemName">Item Name</label>
       </div>
       <div class="input-field col s6">
-        <input id="itemDescription" type="text" class="validate" ng-model="itemTxt.description">
+        <input id="itemDescription" type="text" class="validate" ng-model="itemText.description">
         <label for="itemDescription">Item Description</label>
       </div>
       <div class="input-field col s6">
-        <input id="itemPrice" type="text" class="validate" ng-model="itemTxt.price">
+        <input id="itemPrice" type="text" class="validate" ng-model="itemText.price">
         <label for="itemPrice">Price</label>
       </div>
       <a class="waves-effect waves-light btn" ng-click="newItem()">Add Item</a>

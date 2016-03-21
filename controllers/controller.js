@@ -24,7 +24,7 @@ exports.logout = function(req, res, next){
 }
 
 exports.getItems = function(req, res, next){
-  Item.fine({})
+  Item.find({})
   .populate('_owner', 'username')
   .populate({
     path: 'comments',
@@ -34,12 +34,12 @@ exports.getItems = function(req, res, next){
     }
   })
   .exec()
-  .then(function(itmes){
+  .then(function(items){
     res.json(items);
   });
 }
 
-exports.getComments = function(req, res, next){
+exports.addComment = function(req, res, next){
   var itemName = req.body.itemName;
   var commentMessage = req.body.commentMessage;
   var comment = new Comment({
@@ -61,7 +61,7 @@ exports.getComments = function(req, res, next){
 }
 
 exports.newItem = function(req, res, next){
-  var itemName = req.body.itenName;
+  var itemName = req.body.itemName;
   var itemDescription = req.body.itemDescription;
   var itemPrice = req.body.itemPrice;
   var item = new Item({

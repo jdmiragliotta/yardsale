@@ -1,5 +1,5 @@
-angular.module('yardsale');
-.controller('yardsale', function ($scope. $http){
+angular.module('yardsale')
+.controller('yardsaleController', function ($scope, $http){
 
   $scope.forms = {},
   $scope.login = function(){
@@ -50,8 +50,8 @@ angular.module('yardsale');
   $scope.newItem = function(){
     $http.post('/api/newItem', {
       //get all fields
-      itemName: $scope.itemText.name;
-      itemDescription: $scope.itemText.description;
+      itemName: $scope.itemText.name,
+      itemDescription: $scope.itemText.description,
       itemPrice: $scope.itemText.price
     })
     .then(function(){
